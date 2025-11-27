@@ -1,16 +1,49 @@
-<div class="register-container">
-  <form (ngSubmit)="registrar()">
+<form [formGroup]="form" (ngSubmit)="registrar()" class="d-flex justify-content-center align-items-center vh-100 bg-light">
 
-    <h2>Criar Conta</h2>
+  <div class="card shadow p-4" style="width: 24rem;">
+    <h2 class="text-center mb-3">Registrar</h2>
 
-    <input type="email" placeholder="Email" [(ngModel)]="email" name="email" required>
-    <input type="password" placeholder="Senha" [(ngModel)]="senha" name="senha" required>
+    <!-- E-mail -->
+    <div class="mb-3">
+      <label for="email" class="form-label">E-mail</label>
+      <input type="email" id="email" class="form-control" formControlName="email" placeholder="Digite seu e-mail">
+      <small [ngClass]="{'text-success': emailValid, 'text-danger': !emailValid}">
+        E-mail válido
+      </small>
+    </div>
 
-    <button type="submit">Registrar</button>
+    <!-- Senha -->
+    <div class="mb-3">
+      <label for="senha" class="form-label">Senha</label>
+      <input type="password" id="senha" class="form-control" formControlName="senha" placeholder="Digite sua senha">
+      <ul class="ms-3 mt-1">
+        <li [ngClass]="{'text-success': passwordValid.length, 'text-danger': !passwordValid.length}">
+          8-16 caracteres
+        </li>
+        <li [ngClass]="{'text-success': passwordValid.number, 'text-danger': !passwordValid.number}">
+          1 letra e 1 número
+        </li>
+        <li [ngClass]="{'text-success': passwordValid.uppercase, 'text-danger': !passwordValid.uppercase}">
+          1 letra maiúscula
+        </li>
+        <li [ngClass]="{'text-success': passwordValid.special, 'text-danger': !passwordValid.special}">
+          1 caractere especial
+        </li>
+      </ul>
+    </div>
 
-    <p class="link">
-      Já tem conta? <a routerLink="/login">Faça login</a>
-    </p>
+    <!-- Confirmar senha -->
+    <div class="mb-3">
+      <label for="confirmaSenha" class="form-label">Confirmar senha</label>
+      <input type="password" id="confirmaSenha" class="form-control" formControlName="confirmaSenha" placeholder="Confirme sua senha">
+      <small [ngClass]="{'text-success': confirmPasswordValid, 'text-danger': !confirmPasswordValid}">
+        Senhas iguais
+      </small>
+    </div>
 
-  </form>
-</div>
+    <!-- Botões -->
+    <button type="submit" class="btn btn-success w-100 mb-2" [disabled]="!canSubmit">Cadastrar</button>
+    <a routerLink="/login" class="btn btn- w-100">Já possui conta? Acesse aqui!</a>
+
+  </div>
+</form>

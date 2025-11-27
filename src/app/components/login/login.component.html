@@ -32,7 +32,8 @@
       <!-- Links -->
       <div class="d-flex justify-content-between mb-3">
         <a routerLink="/forgot" class="small text-primary">Esqueci a senha</a>
-        <a routerLink="/register" class="small text-primary">Registrar</a>
+        <a (click)="goToRegister()" class="small text-primary" style="cursor: pointer;">Registrar</a>
+
       </div>
 
       <button type="submit" class="btn btn-primary w-100">Entrar</button>
