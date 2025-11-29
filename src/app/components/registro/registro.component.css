@@ -1,51 +1,170 @@
-.register-container {
-  width: 100%;
-  height: 100vh;
+/* --- 1. CONFIGURAÇÃO GERAL (WRAPPER/FORM) --- */
 
+/* O 'form' agora atua como o wrapper principal, substituindo .login-wrapper */
+/* Também garante que o card fique centralizado */
+form {
+  height: 100vh;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  background: #f0f0f0;
+  /* Substitua pelo caminho da sua imagem se for diferente */
+  background: url('../../../../img/REGISTER.png') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  position: relative;
+  /* Necessário para o ::before */
 }
 
-form {
-  background: white;
-  width: 90%;
-  max-width: 350px;
-
-  padding: 25px;
-  border-radius: 12px;
-
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-
-  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+/* 1. FILTRO ESCURO (OVERLAY) DE 5% - Aplicado ao 'form' */
+form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.05);
+  z-index: 1;
 }
 
-input {
-  padding: 12px;
+
+/* --- 2. CAIXA DO FORMULÁRIO (CARD) - GLASSMORPHISM --- */
+
+/* O '.card' agora atua como a caixa de login, substituindo .login-box */
+.card {
+  width: 100%;
+  max-width: 384px;
+  /* 24rem * 16px/rem = 384px */
+  padding: 30px;
+
+  z-index: 2;
+  position: relative;
+
+  /* Configurações Glassmorphism PRETO */
+  background: rgba(0, 0, 0, 0.2);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+
+  /* Bordas Brancas */
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+
+  /* Sombra mais suave */
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* --- 3. ELEMENTOS DE TEXTO DENTRO DO CARD --- */
+
+.card h2,
+.card .form-label {
+  color: #ffffff;
+  /* Títulos e Labels Brancas */
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Textos de validação (small e ul/li) */
+.card small,
+.card ul li {
+  color: #ffffff;
+  /* Texto branco como base */
+  font-size: 0.85rem;
+}
+
+/* Ajuste para as cores de validação do Bootstrap sobre o fundo escuro */
+.card .text-success {
+  color: #28a745 !important;
+  /* Verde mais vibrante */
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.9);
+}
+
+.card .text-danger {
+  color: #dc3545 !important;
+  /* Vermelho mais vibrante */
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.9);
+}
+
+/* --- 4. INPUTS --- */
+
+.form-control {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 8px;
-  border: 1px solid #ccc;
 }
 
-button {
-  padding: 12px;
-  border: none;
+/* Placeholder (O texto "Digite seu e-mail") */
+.form-control::placeholder {
+  color: #ffffff;
+  opacity: 0.8;
+}
+
+.form-control:-ms-input-placeholder {
+  color: #ffffff;
+}
+
+.form-control::-ms-input-placeholder {
+  color: #ffffff;
+}
+
+/* Estado de Foco (Branco no lugar do azul) */
+.form-control:focus {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.4);
+  /* Foco Branco */
+  outline: none;
+}
+
+/* --- 5. BOTÕES --- */
+
+/* Botão de Cadastro (btn-success) - Estilo White Glassmorphism */
+.card .btn-success {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.6);
+  color: rgba(0, 0, 0, 0.9);
+  /* Texto preto semi-opaco */
   border-radius: 8px;
-  background: #4a6cff;
-  color: white;
+  box-shadow: none;
   font-weight: bold;
-  cursor: pointer;
-  transition: 0.2s;
+  transition: all 0.2s ease-in-out;
 }
 
-button:hover {
-  background: #3a55d9;
+/* Hover/Focus do Botão de Cadastro (btn-success) */
+.card .btn-success:hover,
+.card .btn-success:focus {
+  background-color: rgba(255, 255, 255, 1);
+  border-color: rgba(255, 255, 255, 1);
+  color: rgba(0, 0, 0, 0.9);
+  /* Foco branco suave */
 }
 
-.link {
-  text-align: center;
-  font-size: 14px;
+/* Botão Link (Já possui conta? Acesse aqui!) */
+.card a.btn {
+  color: #ffffff !important;
+  /* Cor do texto branco */
+  background: transparent;
+  border: none;
+  text-decoration: underline;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+  transition: color 0.2s;
+}
+
+.card a.btn:hover {
+  color: #cccccc !important;
+  background: transparent;
+}
+
+
+/* --- 6. MEDIA QUERIES --- */
+
+/* Para telas muito pequenas (smartphones antigos) */
+@media (max-width: 400px) {
+  .card {
+    max-width: 90%;
+    padding: 20px;
+  }
 }

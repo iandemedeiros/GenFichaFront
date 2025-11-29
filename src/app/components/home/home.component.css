@@ -1,35 +1,253 @@
-/* área ocupando a tela inteira */
+/* ========================================= */
+/* 1. LAYOUT E FUNDO (HOMEPAGE)              */
+/* ========================================= */
+
 .home-wrapper {
   width: 100%;
   height: 100vh;
-  background: #2c2c2c;
+  display: flex;
+  /* Adicionado para centralizar o conteúdo */
+  justify-content: center;
+  /* Adicionado para centralizar o conteúdo */
+  align-items: center;
+  /* Adicionado para centralizar o conteúdo */
+
+  background: url('../../../../img/REGISTER.png') no-repeat center center fixed;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  position: relative;
+  /* Necessário para aplicar overlay se quiser */
 }
 
-/* caixinha central */
+/* Caixa de Conteúdo Central (home-box) - Pode ser usada para Glassmorphism */
 .home-box {
-  border-radius: 16px;
   max-width: 450px;
   width: 90%;
+
+  /* Aplicando Glassmorphism ao home-box */
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(8px);
+  /* Blur ligeiramente reduzido para 8px */
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  /* Borda branca sutil */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  padding: 30px;
+  /* Adicionado padding para o conteúdo interno */
 }
+
+
+/* ========================================= */
+/* 2. HEADER E NAVEGAÇÃO (GLASSMORPHISM)     */
+/* ========================================= */
+
+.main-header {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.25);
+  /* Fundo um pouco mais opaco para o header */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  /* Borda mais visível */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease;
+  z-index: 1030;
+}
+
+/* Marca/Logo */
+.main-header .navbar-brand .logo-text {
+  font-size: 1.6rem;
+  /* Tamanho ajustado */
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+}
+
+/* Links de Navegação */
+.main-header .nav-link {
+  color: rgba(255, 255, 255, 0.9) !important;
+  /* Mais visível */
+  font-weight: 500;
+  margin-left: 20px;
+  /* Espaçamento ajustado */
+  transition: color 0.3s ease;
+}
+
+/* Links Hover/Ativo */
+.main-header .nav-link:hover,
+.main-header .nav-link.active {
+  color: #00bcd4 !important;
+  /* Cor de destaque (Azul Ciano) */
+  text-shadow: 0 0 5px rgba(0, 188, 212, 0.8);
+}
+
+/* Estilo do botão hamburguer (toggler) */
+.main-header .navbar-toggler {
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  /* Remove a cor de fundo padrão ao clicar */
+  transition: border-color 0.3s ease;
+}
+
+.main-header .navbar-toggler:hover {
+  border-color: #00bcd4;
+  /* Brilha ao passar o mouse */
+}
+
+.main-header .navbar-toggler-icon {
+  filter: invert(1);
+}
+
+/* Fundo do menu aberto em mobile (para visibilidade) */
+.main-header .navbar-collapse {
+  background: rgba(0, 0, 0, 0.9);
+  border-radius: 8px;
+  padding: 15px;
+  margin-top: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+
+/* ========================================= */
+/* 3. BOTÃO "ADICIONAR" (Custom)             */
+/* ========================================= */
 
 .btn-add {
   width: 200px;
   height: 200px;
-  background-color: rgba(71, 71, 71, 0.089); /* azul semi-transparente */
-  border: 2px solid rgba(253, 253, 253, 0.5);
-  border-radius: 8px;
+
+  /* Glassmorphism/Estilo */
+  background-color: rgba(255, 255, 255, 0.1);
+  /* Fundo branco/transparente */
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  /* Borda branca mais sólida */
+  border-radius: 12px;
+  /* Arredondamento ajustado */
   font-size: 5rem;
-  color: rgba(197, 197, 197, 0.7);
+  color: rgba(255, 255, 255, 0.8);
+  /* Ícone branco semi-transparente */
+
+  /* Centralizando o ícone */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 .btn-add .plus-icon {
-  pointer-events: none; /* só para garantir que o clique vai pro botão */
+  pointer-events: none;
 }
 
 .btn-add:hover {
-  background-color: #504d4d;
-  color: rgb(255, 255, 255);
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Cor de destaque (Azul Ciano) */
+  color: #ffffff;
+  border-color: #ffffff;
   transform: scale(1.05);
   cursor: pointer;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  /* Brilho ao passar o mouse */
+}
+
+/* Inputs da Barra de Pesquisa no Header */
+.main-header .form-control {
+  /* Fundo escuro e bordas brancas para combinar com o tema */
+  background-color: rgba(0, 0, 0, 0.4);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 6px;
+}
+
+/* Placeholder (Texto "Pesquisar...") */
+.main-header .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Foco do Input (Para evitar o foco azul padrão) */
+.main-header .form-control:focus {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.8);
+  /* Foco branco suave (removendo o foco azul do Bootstrap) */
+  box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.3);
+}
+
+/* Botão de Busca (btn-outline-light) */
+.main-header .btn-outline-light {
+  /* Botão transparente com texto branco */
+  color: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.5);
+  transition: all 0.2s ease;
+}
+
+.main-header .btn-outline-light:hover {
+  /* Fundo branco e texto preto no hover */
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #000000;
+  border-color: #ffffff;
+}
+
+/* ========================================= */
+/* 4. RESPONSIVIDADE (MOBILE)                */
+/* ========================================= */
+
+@media (max-width: 576px) {
+  /* --- HEADER (Navbar) --- */
+
+  .main-header .navbar {
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    /* ADICIONA MARGEM HORIZONTAL (ESPAÇAMENTO LATERAL) */
+    padding-left: 15px;
+    /* Espaço na esquerda */
+    padding-right: 15px;
+    /* Espaço na direita */
+  }
+
+
+
+  /* 1. Centralizando o Logo */
+  .main-header .navbar-brand {
+    margin-right: 0 !important;
+    margin-bottom: 10px;
+  }
+
+  /* 2. Barra de Pesquisa */
+  .main-header .navbar form.d-flex.flex-grow-1 {
+    width: 100%;
+    flex-grow: 0;
+  }
+
+  /* --- CONTEÚDO PRINCIPAL (Botão +) --- */
+
+  /* 3. Reduzindo o Botão em 50% */
+  .btn-add {
+    /* 50% de 200px é 100px */
+    width: 100px;
+    height: 100px;
+    font-size: 2.5rem;
+    /* Reduz o ícone "+" também */
+    border-radius: 8px;
+    /* Reduz o arredondamento para melhor proporção */
+  }
+
+  /* Ajuste para o padding/margin do wrapper/container */
+  .home-wrapper {
+    /* Garante que o padding superior do header seja compensado (se necessário) */
+    padding-top: 100px;
+    /* Valor ajustado se o header ocupar mais espaço */
+  }
+
+  /* Ajuste o margin do div que envolve o botão */
+  .home-wrapper>div {
+    margin: 20px !important;
+    /* Reduz o m-5 para m-3 ou 20px no mobile */
+  }
 }

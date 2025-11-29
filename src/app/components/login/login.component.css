@@ -1,21 +1,164 @@
-/* Wrapper para ocupar a tela inteira */
+/* Wrapper (Mantido para o fundo) */
 .login-wrapper {
     height: 100vh;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #c0c0c0;
+    background: url('../../../../img/REGISTER.png') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
-/* Caixa do login */
+/* Placeholder (O texto "Digite seu e-mail") */
+.form-control::placeholder {
+    /* Padrão */
+    color: #ffffff;
+    opacity: 0.8;
+    /* Adiciona uma pequena transparência para diferenciá-lo do texto digitado */
+}
+
+.form-control:-ms-input-placeholder {
+    /* Para Internet Explorer */
+    color: #ffffff;
+}
+
+.form-control::-ms-input-placeholder {
+    /* Para Edge */
+    color: #ffffff;
+}
+
+.login-box .btn-primary {
+    /* Fundo Branco */
+    background-color: rgba(255, 255, 255, 0.9);
+    /* Branco com alta opacidade */
+    border-color: rgba(255, 255, 255, 0.6);
+
+    /* Texto Transparente (Glassmorphism no texto) */
+    color: rgba(0, 0, 0, 0.9);
+    /* Texto preto com 60% de opacidade */
+
+    /* Arredondamento do botão para combinar com os inputs */
+    border-radius: 8px;
+
+    /* Remoção da sombra padrão do Bootstrap para manter o estilo limpo */
+    box-shadow: none;
+    font-weight: bold;
+}
+
+
+
+/* 1. FILTRO ESCURO (OVERLAY) DE 10% */
+.login-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* Fundo preto com 10% de opacidade */
+    background-color: rgba(0, 0, 0, 0.05);
+    z-index: 1;
+    /* Garante que o filtro fique abaixo do box de login */
+}
+
+
+
+.login-box .btn-primary:hover,
+.login-box .btn-primary:focus {
+    /* Fundo ligeiramente mais opaco (Totalmente Branco) */
+    background-color: rgba(255, 255, 255, 1);
+    border-color: rgba(255, 255, 255, 1);
+
+    /* Texto ligeiramente mais opaco (menos transparente) */
+    color: rgba(0, 0, 0, 0.9);
+
+
+    /* Mantém a transição suave */
+    transition: all 0.2s ease-in-out;
+}
+
+/* Caixa do login - Efeito GLASSMORPHISM */
 .login-box {
     width: 100%;
     max-width: 360px;
-    background: #ffffff;
-    border-radius: 14px;
     padding: 30px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+
+    /* Coloca o box de login acima do filtro escuro (z-index: 1 do filtro) */
+    z-index: 2;
+    position: relative;
+
+    /* Configurações Glassmorphism PRETO */
+    background: rgba(0, 0, 0, 0.2);
+    /* Fundo preto com 20% de opacidade */
+    -webkit-backdrop-filter: blur(10px);
+    /* O efeito de desfoque */
+    backdrop-filter: blur(10px);
+
+    /* Bordas Brancas (Ajustadas para mais visibilidade no fundo escuro) */
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+
+    /* Sombra mais suave */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* Títulos e textos (para garantir visibilidade no fundo) */
+.login-box h2 {
+    color: #ffffff;
+    /* Título Branco */
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    /* Sombra para destacar */
+}
+
+.login-box .form-label {
+    color: #ffffff;
+    /* Labels Brancas */
+}
+
+/* Inputs de formulário - Fundo escuro e Arredondamento */
+.form-control {
+    /* Fundo preto (ou muito escuro) com transparência */
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    /* Texto do input branco */
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    /* Borda branca sutil */
+    border-radius: 8px;
+    /* Arredondamento */
+}
+
+/* Estado de Foco (quando o usuário clica) */
+.form-control:focus {
+    background-color: rgba(0, 0, 0, 0.7);
+    /* Fica um pouco mais escuro ao focar */
+    color: #ffffff;
+    border-color: #007bff;
+    /* Cor primária do Bootstrap ou a cor que você preferir */
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+    /* Sombra de foco padrão */
+}
+
+/* Links (Esqueci a Senha / Registrar) */
+.login-box a.text-primary {
+    color: #ffffff !important;
+    /* Mudo para branco para visibilidade */
+    text-decoration: underline;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+}
+
+.login-box a:hover {
+    color: #cccccc !important;
+}
+
+/* Para telas muito pequenas (smartphones antigos) */
+@media (max-width: 350px) {
+    .login-box {
+        max-width: 90%;
+        padding: 20px;
+    }
 }
 
 /* Para telas muito pequenas (smartphones antigos) */

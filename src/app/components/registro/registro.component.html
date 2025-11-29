@@ -1,4 +1,5 @@
-<form [formGroup]="form" (ngSubmit)="registrar()" class="d-flex justify-content-center align-items-center vh-100 bg-light">
+<form [formGroup]="form" (ngSubmit)="registrar()"
+  class="d-flex justify-content-center align-items-center vh-100 bg-light">
 
   <div class="card shadow p-4" style="width: 24rem;">
     <h2 class="text-center mb-3">Registrar</h2>
@@ -35,7 +36,8 @@
     <!-- Confirmar senha -->
     <div class="mb-3">
       <label for="confirmaSenha" class="form-label">Confirmar senha</label>
-      <input type="password" id="confirmaSenha" class="form-control" formControlName="confirmaSenha" placeholder="Confirme sua senha">
+      <input type="password" id="confirmaSenha" class="form-control" formControlName="confirmaSenha"
+        placeholder="Confirme sua senha">
       <small [ngClass]="{'text-success': confirmPasswordValid, 'text-danger': !confirmPasswordValid}">
         Senhas iguais
       </small>

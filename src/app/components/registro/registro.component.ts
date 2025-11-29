@@ -8,7 +8,8 @@ import { Router, RouterModule } from '@angular/router';
   standalone: true,
   selector: 'app-registro',
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
-  templateUrl: './registro.component.html'
+  templateUrl: './registro.component.html',
+  styleUrl: './registro.component.css'
 })
 export class RegistroComponent {
 
@@ -64,10 +65,10 @@ export class RegistroComponent {
   }
 
   get canSubmit() {
-    return this.emailValid && 
-           Object.values(this.passwordValid).every(Boolean) &&
-           this.confirmPasswordValid &&
-           this.form.valid;
+    return this.emailValid &&
+      Object.values(this.passwordValid).every(Boolean) &&
+      this.confirmPasswordValid &&
+      this.form.valid;
   }
 
   registrar() {
