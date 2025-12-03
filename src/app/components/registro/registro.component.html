@@ -4,13 +4,22 @@
   <div class="card shadow p-4" style="width: 24rem;">
     <h2 class="text-center mb-3">Registrar</h2>
 
+    <!-- Nome -->
+    <div class="mb-3">
+      <label for="name" class="form-label">Nome</label>
+      <input type="text" id="name" class="form-control" formControlName="nome" placeholder="Digite seu nome">
+      
+    </div>
     <!-- E-mail -->
     <div class="mb-3">
       <label for="email" class="form-label">E-mail</label>
       <input type="email" id="email" class="form-control" formControlName="email" placeholder="Digite seu e-mail">
-      <small [ngClass]="{'text-success': emailValid, 'text-danger': !emailValid}">
-        E-mail válido
-      </small>
+      <!-- Mostra o status do e-mail apenas se o campo foi tocado ou modificado -->
+      <ng-container *ngIf="form.get('email')?.touched || form.get('email')?.dirty">
+        <small *ngIf="form.get('email')?.valid" class="text-success">E-mail válido</small>
+        <small *ngIf="form.get('email')?.hasError('required')" class="text-danger">E-mail é obrigatório</small>
+        <small *ngIf="form.get('email')?.hasError('email')" class="text-danger">Formato de e-mail inválido</small>
+      </ng-container>
     </div>
 
     <!-- Senha -->
@@ -22,7 +31,10 @@
           8-16 caracteres
         </li>
         <li [ngClass]="{'text-success': passwordValid.number, 'text-danger': !passwordValid.number}">
-          1 letra e 1 número
+          Pelo menos 1 número
+        </li>
+        <li [ngClass]="{'text-success': passwordValid.lowercase, 'text-danger': !passwordValid.lowercase}">
+          Pelo menos 1 letra minúscula
         </li>
         <li [ngClass]="{'text-success': passwordValid.uppercase, 'text-danger': !passwordValid.uppercase}">
           1 letra maiúscula
@@ -38,9 +50,14 @@
       <label for="confirmaSenha" class="form-label">Confirmar senha</label>
       <input type="password" id="confirmaSenha" class="form-control" formControlName="confirmaSenha"
         placeholder="Confirme sua senha">
-      <small [ngClass]="{'text-success': confirmPasswordValid, 'text-danger': !confirmPasswordValid}">
-        Senhas iguais
-      </small>
+      <!-- Mostra o status da confirmação apenas se o campo foi tocado e não está vazio -->
+      <!-- A verificação agora é feita no erro 'mismatch' do formulário geral -->
+      <ng-container *ngIf="form.get('confirmaSenha')?.dirty">
+        <small *ngIf="form.get('confirmaSenha')?.valid && !form.hasError('mismatch')" class="text-success">
+          As senhas coincidem
+        </small>
+        <small *ngIf="form.hasError('mismatch')" class="text-danger">As senhas não coincidem</small>
+      </ng-container>
     </div>
 
     <!-- Botões -->

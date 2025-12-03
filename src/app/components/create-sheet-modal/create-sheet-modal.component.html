@@ -1,0 +1,52 @@
+<!-- Fundo escuro que cobre a tela. Clicar nele fecha o modal. -->
+<div class="modal-backdrop" (click)="closeModal()"></div>
+
+<!-- Conteúdo do Modal -->
+<div class="modal-content card">
+  <form [formGroup]="sheetForm" (ngSubmit)="createSheet()">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h4 class="mb-0">Criar Nova Ficha</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+    </div>
+
+    <div class="card-body">
+      <!-- Nome da Ficha -->
+      <div class="mb-3">
+        <label for="nome" class="form-label">Nome da Ficha</label>
+        <input type="text" id="nome" class="form-control" formControlName="nome" placeholder="Ex: Kael, o Bárbaro">
+      </div>
+
+      <!-- Imagem -->
+      <div class="mb-3">
+        <label for="imagem" class="form-label">Imagem do Personagem</label>
+        <input type="file" id="imagem" class="form-control" accept="image/*" (change)="onFileChange($event)">
+      </div>
+
+      <!-- Sistema de RPG -->
+      <div class="mb-3">
+        <label for="sistema" class="form-label">Sistema de RPG</label>
+        <select id="sistema" class="form-select" formControlName="sistema">
+          <option value="" disabled>Selecione um sistema...</option>
+          <option *ngFor="let sistema of sistemasRPG" [value]="sistema.id">{{ sistema.nome }}</option>
+        </select>
+      </div>
+
+      <!-- Tipo de Ficha -->
+      <div class="mb-3">
+        <label for="tipoFicha" class="form-label">Tipo de Ficha</label>
+        <select id="tipoFicha" class="form-select" formControlName="tipoFicha">
+          <option value="" disabled>
+            {{ sheetForm.get('sistema')?.value ? 'Selecione um tipo...' : 'Escolha um sistema primeiro' }}
+          </option>
+          <option *ngFor="let tipo of tiposDisponiveis" [value]="tipo">{{ tipo }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="card-footer d-flex justify-content-end">
+      <button type="button" class="btn btn-secondary me-2" (click)="closeModal()">Cancelar</button>
+      <!-- O botão de criar fica desabilitado até o formulário ser válido -->
+      <button type="submit" class="btn btn-primary" [disabled]="!sheetForm.valid">Criar Ficha</button>
+    </div>
+  </form>
+</div>

@@ -13,8 +13,14 @@
 
 <div class="home-wrapper d-flex justify-content-start align-items-start">
   <div class="d-flex justify-content-center align-items-center m-5">
-    <button class="btn btn-add d-flex justify-content-center align-items-center mt-5">
+    <!-- O (click) aqui vai chamar o método para abrir o modal -->
+    <button class="btn btn-add d-flex justify-content-center align-items-center mt-5" (click)="openModal()">
       <span class="plus-icon">+</span>
     </button>
   </div>
 </div>
+
+<!-- Modal de Criação de Ficha -->
+<!-- Ele só será exibido se 'isModalVisible' for verdadeiro -->
+<app-create-sheet-modal *ngIf="isModalVisible" (close)="closeModal()" (create)="onSheetCreated($event)">
+</app-create-sheet-modal>

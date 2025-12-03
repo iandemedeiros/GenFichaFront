@@ -29,7 +29,7 @@ export class LoginComponent {
   ) {}
 
   login() {
-    this.http.post("http://localhost:3000/api/login", {
+    this.http.post("http://localhost:3001/api/login", {
       email: this.email,
       senha: this.senha
     }).subscribe({

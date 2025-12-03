@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate {
     const user = this.auth.getUser();
 
     // EXCEÇÕES: login e registro NÃO precisam de token
-    const openRoutes = ['login', 'register'];
+    const openRoutes = ['login', 'registro'];
     const currentRoute = route.routeConfig?.path;
 
     if (currentRoute && openRoutes.includes(currentRoute)) {
