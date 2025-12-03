@@ -12,14 +12,6 @@ import { Router, RouterModule } from '@angular/router';
   styleUrl: './registro.component.css'
 })
 export class RegistroComponent {
-
-  form = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    senha: new FormControl('', [Validators.required]),
-    confirmaSenha: new FormControl('', [Validators.required])
-  });
-
-  emailValid = false;
   passwordValid = {
     length: false,
     number: false,
