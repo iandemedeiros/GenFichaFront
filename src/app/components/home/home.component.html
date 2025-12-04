@@ -13,16 +13,32 @@
   </nav>
 </header>
 
-<div class="home-wrapper d-flex justify-content-start align-items-start">
-  <div class="d-flex justify-content-center align-items-center m-5">
+<div class="home-wrapper d-flex justify-content-start align-items-start flex-wrap p-5">
+  <!-- Botão para adicionar nova ficha -->
+  <div class="d-flex justify-content-center align-items-center m-3 mt-5">
     <!-- O (click) aqui vai chamar o método para abrir o modal -->
-    <button class="btn btn-add d-flex justify-content-center align-items-center mt-5" (click)="openModal()">
+    <button class="btn btn-add d-flex justify-content-center align-items-center" (click)="openModal()">
       <span class="plus-icon">+</span>
     </button>
   </div>
+
+  <!-- Card para cada ficha existente -->
+  <!-- A classe 'text-white' garante que o texto seja legível sobre a imagem. -->
+  <div *ngFor="let ficha of (fichas$ | async)" class="card text-white m-3 mt-5" [routerLink]="['/fichas', ficha.id]" style="width: 18rem;">
+    <img src="assets/personagem.jpg" class="card-img" alt="Imagem da Ficha" style="height: 250px; object-fit: cover; filter: brightness(0.7);">
+    <!-- 'card-img-overlay' posiciona este div sobre a imagem anterior -->
+    <div class="card-img-overlay d-flex flex-column justify-content-end">
+      <h5 class="card-title">{{ ficha.nome }}</h5>
+      <p class="card-text">
+        <small>Sistema: {{ ficha.sistema?.nome || 'Carregando...' }}</small><br>
+        <small>Criado em: {{ ficha.dataCriacao | date:'dd/MM/yyyy' }}</small>
+      </p>
+    </div>
+  </div>
+
 </div>
 
 <!-- Modal de Criação de Ficha -->
-<!-- Ele só será exibido se 'isModalVisible' for verdadeiro -->
-<app-create-sheet-modal *ngIf="isModalVisible" (close)="closeModal()" (create)="onSheetCreated($event)">
+<!-- O evento (sheetCreated) agora pode ser usado para atualizar a lista na home -->
+<app-create-sheet-modal *ngIf="isModalVisible" (close)="closeModal()" (sheetCreated)="onSheetCreated($event)">
 </app-create-sheet-modal>

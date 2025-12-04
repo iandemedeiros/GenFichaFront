@@ -19,6 +19,19 @@ export class ItemService {
     );
   }
 
+  /**
+   * Busca itens associados a um sistema específico.
+   * @param idSistema O ID do sistema para filtrar os itens.
+   * @returns Um Observable com um array de Itens.
+   */
+  getItensBySistema(idSistema: number): Observable<Item[]> {
+    // Este endpoint precisa existir no seu backend! Ex: http://localhost:3001/api/sistemas/1/itens
+    const url = `http://localhost:3001/api/sistemas/${idSistema}/itens`;
+    return this.http.get<Item[]>(url).pipe(
+      catchError(() => of([])) // Retorna array vazio em caso de erro.
+    );
+  }
+
   // GET /api/itens/:id
   getItem(id: number): Observable<Item> {
     return this.http.get<Item>(`${this.apiUrl}/${id}`).pipe(
@@ -31,18 +44,23 @@ export class ItemService {
   }
 
   // POST /api/itens
-  createItem(item: Item): Observable<Item> {
+  createItem(item: Partial<Item>): Observable<Item> {
     return this.http.post<Item>(this.apiUrl, item).pipe(
       catchError(error => {
         console.error('A chamada HTTP para criar o item falhou:', error);
-        throw error; // Relança o erro para que o componente possa tratá-lo
+        return throwError(() => new Error('Falha ao criar o item.'));
       })
     );
   }
 
   // PUT /api/itens/:id
-  updateItem(id: number, item: Item): Observable<Item> {
-    return this.http.put<Item>(`${this.apiUrl}/${id}`, item);
+  updateItem(id: number, item: Partial<Item>): Observable<Item> {
+    return this.http.put<Item>(`${this.apiUrl}/${id}`, item).pipe(
+      catchError(error => {
+        console.error(`Erro ao atualizar item com id ${id}:`, error);
+        return throwError(() => new Error('Falha ao atualizar o item.'));
+      })
+    );
   }
 
   // DELETE /api/itens/:id

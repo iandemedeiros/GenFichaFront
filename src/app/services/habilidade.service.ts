@@ -20,24 +20,47 @@ export class HabilidadeService {
     );
   }
 
+  /**
+   * Busca habilidades associadas a um sistema específico.
+   * @param idSistema O ID do sistema para filtrar as habilidades.
+   * @returns Um Observable com um array de Habilidades.
+   */
+  getHabilidadesBySistema(idSistema: number): Observable<Habilidade[]> {
+    // Este endpoint precisa existir no seu backend! Ex: http://localhost:3001/api/sistemas/1/habilidades
+    const url = `http://localhost:3001/api/sistemas/${idSistema}/habilidades`;
+    return this.http.get<Habilidade[]>(url).pipe(
+      catchError(() => of([])) // Retorna array vazio em caso de erro.
+    );
+  }
+
   // GET /api/habilidades/:id
   getHabilidade(id: number): Observable<Habilidade> {
-    return this.http.get<Habilidade>(`${this.apiUrl}/${id}`);
+    return this.http.get<Habilidade>(`${this.apiUrl}/${id}`).pipe(
+      catchError(error => {
+        console.error(`Erro ao buscar habilidade com id ${id}:`, error);
+        return throwError(() => new Error('Não foi possível carregar os dados da habilidade.'));
+      })
+    );
   }
 
   // POST /api/habilidades
-  createHabilidade(habilidade: Habilidade): Observable<Habilidade> {
+  createHabilidade(habilidade: Partial<Habilidade>): Observable<Habilidade> {
     return this.http.post<Habilidade>(this.apiUrl, habilidade).pipe(
       catchError(error => {
         console.error('A chamada HTTP para criar a habilidade falhou:', error);
-        throw error; // Relança o erro para que o componente possa tratá-lo
+        return throwError(() => new Error('Falha ao criar a habilidade.'));
       })
     );
   }
 
   // PUT /api/habilidades/:id
-  updateHabilidade(id: number, habilidade: Habilidade): Observable<Habilidade> {
-    return this.http.put<Habilidade>(`${this.apiUrl}/${id}`, habilidade);
+  updateHabilidade(id: number, habilidade: Partial<Habilidade>): Observable<Habilidade> {
+    return this.http.put<Habilidade>(`${this.apiUrl}/${id}`, habilidade).pipe(
+      catchError(error => {
+        console.error(`Erro ao atualizar habilidade com id ${id}:`, error);
+        return throwError(() => new Error('Falha ao atualizar a habilidade.'));
+      })
+    );
   }
 
   // DELETE /api/habilidades/:id
