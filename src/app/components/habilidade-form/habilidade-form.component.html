@@ -1,0 +1,50 @@
+<div class="container mt-4">
+  <h2>{{ isEditMode ? 'Editar Habilidade' : 'Nova Habilidade' }}</h2>
+  <hr>
+  
+  <form [formGroup]="habilidadeForm" (ngSubmit)="onSubmit()">
+    <!-- Campo Nome -->
+    <div class="mb-3">
+      <label for="nome" class="form-label">Nome da Habilidade</label>
+      <input type="text" id="nome" class="form-control" formControlName="nome" [class.is-invalid]="habilidadeForm.get('nome')?.invalid && habilidadeForm.get('nome')?.touched">
+      <div *ngIf="habilidadeForm.get('nome')?.invalid && habilidadeForm.get('nome')?.touched" class="invalid-feedback">
+        O nome é obrigatório.
+      </div>
+    </div>
+  
+    <!-- Campo Descrição -->
+    <div class="mb-3">
+      <label for="descricao" class="form-label">Descrição</label>
+      <textarea id="descricao" class="form-control" formControlName="descricao" rows="4" [class.is-invalid]="habilidadeForm.get('descricao')?.invalid && habilidadeForm.get('descricao')?.touched"></textarea>
+      <div *ngIf="habilidadeForm.get('descricao')?.invalid && habilidadeForm.get('descricao')?.touched" class="invalid-feedback">
+        A descrição é obrigatória e deve ter no máximo 512 caracteres.
+      </div>
+    </div>
+  
+    <!-- Campo de Associação com Sistemas -->
+    <div class="mb-3">
+      <h5>Associar a Sistemas</h5>
+      <p class="text-muted">Marque os sistemas de RPG nos quais esta habilidade estará disponível.</p>
+      <div formArrayName="sistemas">
+        <div *ngFor="let sistema of todosSistemas; let i = index" class="form-check">
+          <input class="form-check-input" type="checkbox" [formControlName]="i" [id]="'sistema-' + i">
+          <label class="form-check-label" [for]="'sistema-' + i">
+            {{ sistema.nome }}
+          </label>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Mensagem de Erro Geral -->
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+      {{ errorMessage }}
+    </div>
+  
+    <!-- Botões de Ação -->
+    <button type="submit" class="btn btn-primary" [disabled]="habilidadeForm.invalid || isSaving">
+      <span *ngIf="isSaving" class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+      <span role="status">{{ isSaving ? 'Salvando...' : (isEditMode ? 'Salvar Alterações' : 'Criar Habilidade') }}</span>
+    </button>
+    <button type="button" class="btn btn-secondary ms-2" (click)="cancelar()">Cancelar</button>
+  </form>
+</div>

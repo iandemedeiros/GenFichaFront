@@ -1,0 +1,26 @@
+<div class="sidebar">
+    <div class="logo">
+        <!-- CORRETO: Caminho relativo à pasta 'assets' -->
+        <img src="/assets/logo.png" alt="SysRPG Logo">
+
+    </div>
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
+        </li>
+        <li *ngIf="isAdmin" class="nav-item">
+            <a class="nav-link" routerLink="/admin/magias" routerLinkActive="active">Magias</a>
+        </li>        
+        <li *ngIf="isAdmin" class="nav-item">
+            <a class="nav-link" routerLink="/admin/habilidades" routerLinkActive="active">Habilidades</a>
+        </li>
+        <li *ngIf="isAdmin" class="nav-item">
+            <a class="nav-link" routerLink="/admin/itens" routerLinkActive="active">Itens</a>
+        </li>
+
+    </ul>
+
+    <div class="logout-section" *ngIf="isLogged">
+        <button (click)="logout()" class="btn btn-danger w-100">Sair</button>
+    </div>
+</div>

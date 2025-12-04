@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service'; // 1. Importar o AuthService
 
 @Component({
   selector: 'app-login',
@@ -24,18 +24,17 @@ export class LoginComponent {
   senha = "";
 
   constructor(
-    private http: HttpClient,
-    private router: Router
+    private authService: AuthService, // 2. Injetar o AuthService
+    private router: Router,
   ) {}
 
   login() {
-    this.http.post("http://localhost:3001/api/login", {
+    // 3. Usar o método login do AuthService
+    this.authService.login({
       email: this.email,
       senha: this.senha
     }).subscribe({
-      next: (res: any) => {
-        localStorage.setItem("token", res.token);
-        localStorage.setItem("user", JSON.stringify(res.user));
+      next: () => {
         this.router.navigate(["/home"]);
       },
       error: () => {

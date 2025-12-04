@@ -1,0 +1,38 @@
+<h2>{{ isEditMode ? 'Editar' : 'Criar' }} Magia</h2>
+
+<form [formGroup]="magiaForm" (ngSubmit)="onSubmit()">
+  <div class="mb-3">
+    <label for="nome" class="form-label">Nome da Magia</label>
+    <input type="text" id="nome" class="form-control" formControlName="nome">
+    <div *ngIf="magiaForm.get('nome')?.invalid && magiaForm.get('nome')?.touched" class="text-danger">
+      O nome é obrigatório.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="descricao" class="form-label">Descrição</label>
+    <textarea id="descricao" class="form-control" formControlName="descricao" rows="4"></textarea>
+    <div *ngIf="magiaForm.get('descricao')?.invalid && magiaForm.get('descricao')?.touched" class="text-danger">
+      A descrição é obrigatória.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <h5>Associar a Sistemas</h5>
+    <p class="text-muted">Marque os sistemas de RPG nos quais esta magia estará disponível.</p>
+    <div formArrayName="sistemas">
+      <div *ngFor="let sistema of todosSistemas; let i = index" class="form-check">
+        <input class="form-check-input" type="checkbox" [formControlName]="i" [id]="'sistema-' + i">
+        <label class="form-check-label" [for]="'sistema-' + i">
+          {{ sistema.nome }}
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary" [disabled]="magiaForm.invalid || isSaving">
+    <span *ngIf="isSaving" class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+    <span role="status">{{ isSaving ? 'Salvando...' : (isEditMode ? 'Salvar Alterações' : 'Criar Magia') }}</span>
+  </button>
+  <a routerLink="/admin/magias" class="btn btn-secondary ms-2">Cancelar</a>
+</form>

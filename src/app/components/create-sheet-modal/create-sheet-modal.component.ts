@@ -2,7 +2,7 @@ import { Component, EventEmitter, Output, OnInit, inject } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Sistema } from '../../models/sistema.model';
-import { RpgSystemService } from '../../services/rpg-system.service';
+import { SistemaService } from '../../services/sistema.service';
 import { FichaService, CreateFichaPayload } from '../../services/ficha.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
   providers: [FichaService]
 })
 export class CreateSheetModalComponent implements OnInit {
-  private rpgSystemService = inject(RpgSystemService);
+  private sistemaService = inject(SistemaService);
 
   @Output() close = new EventEmitter<void>();
   @Output() create = new EventEmitter<any>();
@@ -46,7 +46,7 @@ export class CreateSheetModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.rpgSystemService.getSistemas().subscribe(data => {
+    this.sistemaService.getSistemas().subscribe(data => {
       console.log('Sistemas recebidos da API:', data);
       this.sistemasRPG = data;
     });
@@ -105,6 +105,7 @@ export class CreateSheetModalComponent implements OnInit {
 
     this.fichaService.createFicha(payload).subscribe(novaFicha => {
       console.log('Ficha criada com sucesso:', novaFicha);
+      this.create.emit(novaFicha); // Notifica o componente pai
       this.closeModal(); // Fecha o modal
       this.router.navigate(['/fichas', novaFicha.id]); // Navega para a página de detalhes
     });

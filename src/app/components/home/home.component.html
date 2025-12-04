@@ -8,6 +8,8 @@
       <input class="form-control me-2" type="search" placeholder="Pesquisar..." aria-label="Search">
       <button class="btn btn-outline-light" type="submit">Buscar</button>
     </form>
+
+    <button *ngIf="isAdmin" class="btn btn-outline-light ms-3" routerLink="/admin/magias">Painel Admin</button>
   </nav>
 </header>
 

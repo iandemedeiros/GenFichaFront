@@ -1,0 +1,63 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Gerenciamento de Habilidades</h2>
+    <button class="btn btn-primary" (click)="criarHabilidade()">
+      <i class="bi bi-plus-lg"></i> Nova Habilidade
+    </button>
+  </div>
+
+  <!-- Barra de Pesquisa -->
+  <div class="mb-3">
+    <input type="text" class="form-control" placeholder="Pesquisar por nome, ID ou sistema..." [formControl]="searchControl">
+  </div>
+
+  <!-- Estado de Carregamento -->
+  <div *ngIf="isLoading" class="text-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Carregando...</span>
+    </div>
+    <p>Carregando habilidades...</p>
+  </div>
+
+  <!-- Estado de Erro -->
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Tabela de Habilidades (só aparece se não estiver carregando e não houver erro) -->
+  <div *ngIf="!isLoading && !errorMessage" class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col" style="width: 70%;">Nome</th>
+          <th scope="col" class="text-end">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let habilidade of habilidadesFiltradas">
+          <th scope="row">{{ habilidade.id }}</th>
+          <td>
+            {{ habilidade.nome }}
+            <!-- Seção de Tags de Sistema -->
+            <div class="mt-1">
+              <span *ngFor="let sistema of habilidade.sistemas" class="badge bg-info me-1 fw-normal">
+                {{ sistema.nome }}
+              </span>
+              <span *ngIf="!habilidade.sistemas || habilidade.sistemas.length === 0" class="badge bg-warning text-dark fw-normal">
+                Sem sistema associado
+              </span>
+            </div>
+          </td>
+          <td class="text-end">
+            <button class="btn btn-sm btn-outline-secondary me-2" (click)="editarHabilidade(habilidade.id)">Editar</button>
+            <button class="btn btn-sm btn-outline-danger" (click)="excluirHabilidade(habilidade.id)">Excluir</button>
+          </td>
+        </tr>
+        <tr *ngIf="!isLoading && habilidadesFiltradas.length === 0">
+          <td colspan="3" class="text-center">Nenhuma habilidade encontrada.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
