@@ -1,0 +1,146 @@
+/* ========================================= */
+/* 5. ESTILOS PARA PÁGINA DE DETALHE (FICHA) */
+/* ========================================= */
+
+/* 5.1. Wrapper da Página (Se for diferente do home-wrapper) */
+.sheet-wrapper {
+    /* Use a mesma imagem de fundo da home ou uma similar, mas garante a altura */
+    min-height: 100vh;
+    padding-top: 70px;
+    /* Espaço para o header fixo */
+    /* Replicar background se não estiver usando o home-wrapper */
+    background: url('../../../../img/REGISTER.png') no-repeat center center fixed;
+    background-size: cover;
+    /* Garante que o conteúdo não fique sob o header */
+}
+
+/* 5.2. Conteiner Principal */
+.sheet-container {
+    /* Centraliza o conteúdo se necessário, ou apenas garante o espaçamento */
+    max-width: 1400px;
+    /* Um container um pouco maior para a ficha */
+    margin: auto;
+}
+
+/* 5.3. Card principal de Informações (Aplicando glass-card a todos os cards) */
+.sheet-container .card {
+    /* Reaproveita o glass-card, mas com ajustes sutis */
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    color: white;
+    /* Garante que o texto dentro do card seja branco */
+    transition: all 0.3s ease;
+}
+
+/* 5.4. Inputs de Formulário (Para combinar com o tema escuro/glass) */
+.sheet-container .form-control,
+.sheet-container .form-select {
+    /* Fundo escuro e bordas brancas/transparentes */
+    background-color: rgba(0, 0, 0, 0.4);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.sheet-container .form-control:focus,
+.sheet-container .form-select:focus {
+    /* Foco suave */
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.3);
+}
+
+.sheet-container .form-label {
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+}
+
+/* 5.5. Estilização do cabeçalho da Ficha */
+.sheet-container header h2 {
+    color: #ffffff;
+    font-weight: 700;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* 5.6. Botões de Ação no Header (Mantendo o padrão) */
+.sheet-container .btn-primary {
+    background-color: #00bcd4;
+    /* Cor de destaque Ciano */
+    border-color: #00bcd4;
+}
+
+.sheet-container .btn-primary:hover {
+    background-color: #00a0b5;
+    border-color: #00a0b5;
+    box-shadow: 0 0 10px rgba(0, 188, 212, 0.5);
+}
+
+.sheet-container .btn-danger,
+.sheet-container .btn-secondary {
+    /* Estilos para que não quebrem o design */
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+}
+
+.sheet-container .btn-danger:hover {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+/* 5.7. Estilo da Lista (Habilidades/Magias/Itens) */
+.list-container .list-group-item {
+    background-color: rgba(255, 255, 255, 0.1);
+    /* Item da lista semi-transparente */
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+.list-container .card-header {
+    /* Título da seção (Habilidades/Magias/Itens) */
+    background-color: rgba(255, 255, 255, 0.15);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    font-weight: 600;
+    color: #ffffff;
+}
+
+/* 5.8. Imagem do Personagem */
+.character-image-wrapper {
+    /* Cria uma moldura para a imagem que pode ter o efeito glass */
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    padding: 10px;
+    /* Garante que a imagem se ajuste bem dentro do wrapper */
+}
+
+.character-image {
+    border-radius: 8px;
+    /* Arredondamento da imagem interna */
+}
+
+/* 5.9. Responsividade */
+@media (max-width: 768px) {
+    .sheet-container header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .sheet-container header h2 {
+        margin-bottom: 15px;
+    }
+
+    .character-image-wrapper {
+        margin-bottom: 20px;
+        /* Espaço entre a imagem e as infos no mobile */
+    }
+}

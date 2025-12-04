@@ -2,6 +2,99 @@
 /* 1. LAYOUT E FUNDO (HOMEPAGE)              */
 /* ========================================= */
 
+.glass-card {
+  /* 1. Cor de fundo semi-transparente (preto com baixa opacidade) */
+  background: rgba(0, 0, 0, 0.25);
+
+  /* 2. O segredo do Glassmorphism: Desfoque do fundo */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  /* Suporte para Safari */
+
+  /* 3. Borda sutil para dar a sensação de espessura do vidro */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  /* 4. Sombra suave para levantar o card do fundo */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+
+  /* Arredondamento e transição suave */
+  border-radius: 16px;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+/* Efeito opcional de Hover */
+.glass-card:hover {
+  transform: translateY(-5px);
+  background: rgba(0, 0, 0, 0.35);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* O container externo já centraliza, mas vamos garantir que o botão não estique */
+.d-flex.justify-content-center.align-items-center.m-3.mt-5 {
+  /* Opcional: garante um espaço seguro se houver muitos cards */
+  margin-bottom: 2rem !important;
+}
+
+.btn-add {
+  /* --- 1. Formato e Proporção (Mantendo o formato de botão circular) --- */
+  width: 65px;
+  /* Tamanho fixo para garantir o círculo */
+  height: 65px;
+  /* Altura igual a largura */
+  border-radius: 50%;
+  /* Torna o quadrado um círculo perfeito */
+  padding: 0;
+  /* Remove padding padrão do Bootstrap para centralizar o ícone */
+
+  /* --- 2. Aplicação do Glassmorphism (Idêntico aos cards) --- */
+  background: rgba(0, 0, 0, 0.25);
+  /* Fundo escuro transparente */
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  /* Para Safari */
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  /* Borda de "vidro" sutil */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  /* Sombra suave */
+
+  /* Transição suave para o hover */
+  transition: all 0.3s ease;
+
+  /* Remove a borda azul de foco padrão do navegador/bootstrap ao clicar */
+  outline: none !important;
+}
+
+/* Efeito de Hover (passar o mouse) */
+.btn-add:hover {
+  background: rgba(0, 0, 0, 0.35);
+  /* Fica ligeiramente mais escuro */
+  border-color: rgba(255, 255, 255, 0.3);
+  /* Borda brilha um pouco mais */
+  transform: scale(1.1) rotate(90deg);
+  /* Aumenta um pouco e gira para um efeito divertido */
+  box-shadow: 0 8px 35px rgba(0, 0, 0, 0.2);
+  /* Sombra aumenta */
+}
+
+/* Estilo do ícone "+" */
+.plus-icon {
+  color: white;
+  /* Cor branca para contraste no vidro escuro */
+  font-size: 36px;
+  /* Tamanho grande */
+  font-weight: 300;
+  /* Fonte mais fina fica mais elegante no vidro */
+  line-height: 1;
+  /* Garante alinhamento vertical perfeito no centro do botão */
+  /* Pequeno ajuste fino para centralizar visualmente se a fonte não for perfeita */
+  padding-bottom: 2px;
+}
+
+
+
+
 .home-wrapper {
   width: 100%;
   height: 100vh;

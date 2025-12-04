@@ -1,123 +1,125 @@
-<div class="sheet-container container-fluid p-4" *ngIf="ficha">
-  <!-- Cabeçalho com botões de ação -->
-  <header class="d-flex justify-content-between align-items-center mb-4">
-    <h2>Editando Ficha: {{ ficha.nome }}</h2>
-    <div>
-      <button class="btn btn-danger me-2" (click)="deletarFicha()">Deletar Ficha</button>
-      <button class="btn btn-secondary me-2" routerLink="/home">Voltar</button>
-      <button class="btn btn-primary" (click)="salvarAlteracoes()">Salvar Alterações</button>
-    </div>
-  </header>
-
-  <form [formGroup]="sheetDetailForm">
-    <!-- Seção Superior: Imagem e Atributos -->
-    <div class="row mb-4">
-      <!-- Coluna Esquerda: Imagem -->
-      <div class="col-md-4 text-center">
-        <div class="character-image-wrapper">
-          <img src="assets/personagem.jpg" alt="Imagem do Personagem" class="character-image" style="max-width: 600px; max-height: 600px; width: 100%; height: auto; object-fit: contain;">
-          
-        </div>
+<div class="home-wrapper sheet-wrapper">
+  <div class="sheet-container container-fluid p-4" *ngIf="ficha">
+    <header class="d-flex justify-content-between align-items-center mb-4">
+      <h2>Editando Ficha: {{ ficha.nome }}</h2>
+      <div>
+        <button class="btn btn-danger me-2" (click)="deletarFicha()">Deletar Ficha</button>
+        <button class="btn btn-secondary me-2" routerLink="/home">Voltar</button>
+        <button class="btn btn-primary" (click)="salvarAlteracoes()">Salvar Alterações</button>
       </div>
+    </header>
 
-      <!-- Coluna Direita: Informações e Atributos -->
-      <div class="col-md-8">
-        <div class="card">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-12 mb-3">
-                <label for="nome" class="form-label">Nome do Personagem</label>
-                <input type="text" id="nome" class="form-control" formControlName="nome">
+    <form [formGroup]="sheetDetailForm">
+      <div class="row mb-4">
+        <div class="col-md-4 text-center">
+          <div class="character-image-wrapper">
+            <img src="assets/personagem.jpg" alt="Imagem do Personagem" class="character-image"
+              style="max-width: 600px; max-height: 600px; width: 100%; height: auto; object-fit: contain;">
+
+          </div>
+        </div>
+
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12 mb-3">
+                  <label for="nome" class="form-label">Nome do Personagem</label>
+                  <input type="text" id="nome" class="form-control" formControlName="nome">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="sistema" class="form-label">Sistema</label>
+                  <input type="text" id="sistema" class="form-control" formControlName="sistema">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="tipoFicha" class="form-label">Tipo de Ficha</label>
+                  <input type="text" id="tipoFicha" class="form-control" formControlName="tipoFicha">
+                </div>
               </div>
-              <div class="col-md-6 mb-3">
-                <label for="sistema" class="form-label">Sistema</label>
-                <input type="text" id="sistema" class="form-control" formControlName="sistema">
-              </div>
-              <div class="col-md-6 mb-3">
-                <label for="tipoFicha" class="form-label">Tipo de Ficha</label>
-                <input type="text" id="tipoFicha" class="form-control" formControlName="tipoFicha">
-              </div>
-            </div>
-            <hr>
-            <h5 class="card-title">Atributos</h5>
-            <div class="row">
-              <div class="col-6 col-md-4 mb-2" *ngFor="let attr of ['forca', 'agilidade', 'intelecto', 'vontade', 'vida', 'defesa', 'percepcao', 'taxaDeCura', 'poder']">
-                <label [for]="attr" class="form-label text-capitalize">{{ attr.replace('De', ' de ') }}</label>
-                <input type="number" [id]="attr" class="form-control" [formControlName]="attr">
+              <hr>
+              <h5 class="card-title">Atributos</h5>
+              <div class="row">
+                <div class="col-6 col-md-4 mb-2"
+                  *ngFor="let attr of ['forca', 'agilidade', 'intelecto', 'vontade', 'vida', 'defesa', 'percepcao', 'taxaDeCura', 'poder']">
+                  <label [for]="attr" class="form-label text-capitalize">{{ attr.replace('De', ' de ') }}</label>
+                  <input type="number" [id]="attr" class="form-control" [formControlName]="attr">
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Seção Inferior: Habilidades, Magias e Itens -->
-    <div class="row">
-      <!-- Habilidades -->
-      <div class="col-md-4">
-        <div class="card list-container">
-          <div class="card-header">Habilidades</div>
-          <div class="card-body">
-            <div class="input-group mb-3">
-              <select class="form-select" [(ngModel)]="habilidadeSelecionada" [ngModelOptions]="{standalone: true}">
-                <option [ngValue]="null" disabled>Selecione uma habilidade</option>
-                <option *ngFor="let hab of (habilidadesDoSistema$ | async)" [ngValue]="hab">{{ hab.nome }}</option>
-              </select>
-              <button class="btn btn-outline-secondary" type="button" (click)="adicionarHabilidade()" [disabled]="!habilidadeSelecionada">Add</button>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card list-container">
+            <div class="card-header">Habilidades</div>
+            <div class="card-body">
+              <div class="input-group mb-3">
+                <select class="form-select" [(ngModel)]="habilidadeSelecionada" [ngModelOptions]="{standalone: true}">
+                  <option [ngValue]="null" disabled>Selecione uma habilidade</option>
+                  <option *ngFor="let hab of (habilidadesDoSistema$ | async)" [ngValue]="hab">{{ hab.nome }}</option>
+                </select>
+                <button class="btn btn-outline-secondary" type="button" (click)="adicionarHabilidade()"
+                  [disabled]="!habilidadeSelecionada">Add</button>
+              </div>
+              <ul class="list-group">
+                <li *ngFor="let hab of habilidadesDaFicha"
+                  class="list-group-item d-flex justify-content-between align-items-center" [title]="hab.descricao">
+                  {{ hab.nome }}
+                  <button class="btn btn-sm btn-danger" (click)="removerHabilidade(hab.id)">&times;</button>
+                </li>
+              </ul>
             </div>
-            <ul class="list-group">
-              <li *ngFor="let hab of habilidadesDaFicha" class="list-group-item d-flex justify-content-between align-items-center" [title]="hab.descricao">
-                {{ hab.nome }}
-                <button class="btn btn-sm btn-danger" (click)="removerHabilidade(hab.id)">&times;</button>
-              </li>
-            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card list-container">
+            <div class="card-header">Magias</div>
+            <div class="card-body">
+              <div class="input-group mb-3">
+                <select class="form-select" [(ngModel)]="magiaSelecionada" [ngModelOptions]="{standalone: true}">
+                  <option [ngValue]="null" disabled>Selecione uma magia</option>
+                  <option *ngFor="let magia of (magiasDoSistema$ | async)" [ngValue]="magia">{{ magia.nome }}</option>
+                </select>
+                <button class="btn btn-outline-secondary" type="button" (click)="adicionarMagia()"
+                  [disabled]="!magiaSelecionada">Add</button>
+              </div>
+              <ul class="list-group">
+                <li *ngFor="let magia of magiasDaFicha"
+                  class="list-group-item d-flex justify-content-between align-items-center" [title]="magia.descricao">
+                  {{ magia.nome }}
+                  <button class="btn btn-sm btn-danger" (click)="removerMagia(magia.id)">&times;</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card list-container">
+            <div class="card-header">Itens</div>
+            <div class="card-body">
+              <div class="input-group mb-3">
+                <select class="form-select" [(ngModel)]="itemSelecionado" [ngModelOptions]="{standalone: true}">
+                  <option [ngValue]="null" disabled>Selecione um item</option>
+                  <option *ngFor="let item of (itensDoSistema$ | async)" [ngValue]="item">{{ item.nome }}</option>
+                </select>
+                <button class="btn btn-outline-secondary" type="button" (click)="adicionarItem()"
+                  [disabled]="!itemSelecionado">Add</button>
+              </div>
+              <ul class="list-group">
+                <li *ngFor="let item of itensDaFicha"
+                  class="list-group-item d-flex justify-content-between align-items-center" [title]="item.descricao">
+                  {{ item.nome }}
+                  <button class="btn btn-sm btn-danger" (click)="removerItem(item.id)">&times;</button>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-
-      <!-- Magias -->
-      <div class="col-md-4">
-        <div class="card list-container">
-          <div class="card-header">Magias</div>
-          <div class="card-body">
-            <div class="input-group mb-3">
-              <select class="form-select" [(ngModel)]="magiaSelecionada" [ngModelOptions]="{standalone: true}">
-                <option [ngValue]="null" disabled>Selecione uma magia</option>
-                <option *ngFor="let magia of (magiasDoSistema$ | async)" [ngValue]="magia">{{ magia.nome }}</option>
-              </select>
-              <button class="btn btn-outline-secondary" type="button" (click)="adicionarMagia()" [disabled]="!magiaSelecionada">Add</button>
-            </div>
-            <ul class="list-group">
-              <li *ngFor="let magia of magiasDaFicha" class="list-group-item d-flex justify-content-between align-items-center" [title]="magia.descricao">
-                {{ magia.nome }}
-                <button class="btn btn-sm btn-danger" (click)="removerMagia(magia.id)">&times;</button>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- Itens -->
-      <div class="col-md-4">
-        <div class="card list-container">
-          <div class="card-header">Itens</div>
-          <div class="card-body">
-            <div class="input-group mb-3">
-              <select class="form-select" [(ngModel)]="itemSelecionado" [ngModelOptions]="{standalone: true}">
-                <option [ngValue]="null" disabled>Selecione um item</option>
-                <option *ngFor="let item of (itensDoSistema$ | async)" [ngValue]="item">{{ item.nome }}</option>
-              </select>
-              <button class="btn btn-outline-secondary" type="button" (click)="adicionarItem()" [disabled]="!itemSelecionado">Add</button>
-            </div>
-            <ul class="list-group">
-              <li *ngFor="let item of itensDaFicha" class="list-group-item d-flex justify-content-between align-items-center" [title]="item.descricao">
-                {{ item.nome }}
-                <button class="btn btn-sm btn-danger" (click)="removerItem(item.id)">&times;</button>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </form>
+    </form>
+  </div>
 </div>

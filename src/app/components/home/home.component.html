@@ -24,16 +24,17 @@
 
   <!-- Card para cada ficha existente -->
   <!-- A classe 'text-white' garante que o texto seja legível sobre a imagem. -->
-  <div *ngFor="let ficha of (fichas$ | async)" class="card text-white m-3 mt-5" [routerLink]="['/fichas', ficha.id]" style="width: 18rem;">
-    <img src="assets/personagem.jpg" class="card-img" alt="Imagem da Ficha" style="height: 250px; object-fit: cover; filter: brightness(0.7);">
-    <!-- 'card-img-overlay' posiciona este div sobre a imagem anterior -->
-    <div class="card-img-overlay d-flex flex-column justify-content-end">
-      <h5 class="card-title">{{ ficha.nome }}</h5>
+  <div *ngFor="let ficha of (fichas$ | async)" class="card glass-card text-white m-3 mt-5"
+    [routerLink]="['/fichas', ficha.id]" style="width: 18rem; cursor: pointer;">
+
+    <div class="card-body d-flex flex-column justify-content-end" style="min-height: 250px;">
+      <h5 class="card-title fw-bold">{{ ficha.nome }}</h5>
       <p class="card-text">
         <small>Sistema: {{ ficha.sistema?.nome || 'Carregando...' }}</small><br>
-        <small>Criado em: {{ ficha.dataCriacao | date:'dd/MM/yyyy' }}</small>
+        <small class="text-white-50">Criado em: {{ ficha.dataCriacao | date:'dd/MM/yyyy' }}</small>
       </p>
     </div>
+
   </div>
 
 </div>
